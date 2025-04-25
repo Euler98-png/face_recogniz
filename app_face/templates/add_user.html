@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="add-user-container">
+  <h2>Ajouter un utilisateur</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Champs liés à l'utilisateur -->
+    {% for field in user_form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <!-- Champs liés au profil -->
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <!-- Champ de téléchargement des images -->
+    <div class="form-group">
+      {{ image_form.images.label_tag }}
+      {{ image_form.images }}
+      {% if image_form.images.errors %}
+        <div class="text-danger">{{ image_form.images.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn-primary">Créer l'utilisateur</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">Modifier l'utilisateur</h2>
+    </div>
+    <div class="modal-content" style="max-width: 500px; margin: 0 auto;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="alert alert-error">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="btn-group" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-delete">Annuler</a>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    // Appliquer les styles aux champs de formulaire
+    document.querySelectorAll('input, select').forEach(element => {
+        element.classList.add('form-input');
+    });
+</script>
+{% endblock %}
+{% endblock %}
+{% block extra_css %}

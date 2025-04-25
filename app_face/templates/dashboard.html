@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">Gestion des utilisateurs</h2>
+        <a href="{% url 'add_user' %}" class="btn btn-primary">Ajouter un utilisateur</a>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom d'utilisateur</th> 
+                    <th>Email</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Téléphone</th>
+                    <th>Fonction</th>
+                    <th>Date d'embauche</th>
+                    <th>Salaire</th>
+                    <th>Genre</th>
+                    <th>Matricule</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profile in profiles %}
+                <tr>
+                    <td>{{ profile.id }}</td>
+                    <td>{{ profile.user.username }}</td>
+                    <td>{{ profile.user.email }}</td>
+                    <td>{{ profile.user.first_name }}</td>
+                    <td>{{ profile.user.last_name }}</td>
+                    <td>{{ profile.phone }}</td>
+                    <td>{{ profile.function }}</td>
+                    <td>{{ profile.hire_date }}</td>
+                    <td>{{ profile.salary }}</td>
+                    <td>{{ profile.gender }}</td>
+                    <td>{{ profile.matricule }}</td>
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

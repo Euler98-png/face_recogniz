@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="user-details-container">
+        <h2 class="user-details-title">Détails de l'utilisateur</h2>
+        {% if profile.image %}
+        <div class="user-image-container" style="margin-bottom: 20px;">
+            <img src="{{ profile.image.url }}" alt="Photo de profil" style="max-width: 200px; border-radius: 10px;">
+            </div>
+        {% else %}
+            <p style="color: gray;">Aucune photo de profil disponible.</p>
+        {% endif %}
+        <div class="user-details">
+            <div class="detail-item">
+                <strong>Nom d'utilisateur:</strong> {{ profile.user.username }}
+            </div>
+            <div class="detail-item">
+                <strong>Email:</strong> {{ profile.user.email }}
+            </div>
+            <div class="detail-item">
+                <strong>Nom:</strong> {{ profile.user.first_name }}
+            </div>
+            <div class="detail-item">
+                <strong>Prénom:</strong> {{ profile.user.last_name }}
+            </div>
+            <div class="detail-item">
+                <strong>Téléphone:</strong> {{ profile.phone }}
+            </div>
+            <div class="detail-item">
+                <strong>Fonction:</strong> {{ profile.function }}
+            </div>
+            <div class="detail-item">
+                <strong>Date d'embauche:</strong> {{ profile.hire_date }}
+            </div>
+            <div class="detail-item">
+                <strong>Salaire:</strong> {{ profile.salary }}
+            </div>
+            <div class="detail-item">
+                <strong>Genre:</strong> {{ profile.gender }}
+            </div>
+            <div class="detail-item">
+                <strong>Matricule:</strong> {{ profile.matricule }}
+            </div>
+        </div>
+        
+        <a href="{% url 'dashboard' %}" class="btn btn-primary">Retour à la liste</a>
+    </div>
+{% endblock %}
