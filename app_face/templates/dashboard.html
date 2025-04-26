@@ -40,6 +40,17 @@
                     <td>{{ profile.salary }}</td>
                     <td>{{ profile.gender }}</td>
                     <td>{{ profile.matricule }}</td>
+                    <td class="btn-group">
+                        <a href="{% url 'edit_user' profile.id %}" class="btn-sm btn-edit" title="Modifier">
+                            
+                        </a>
+                        <a href="{% url 'delete_user' profile.id %}" class="btn-sm btn-delete" title="Supprimer" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                            
+                        </a>
+                        <a href="{% url 'view_user' profile.id %}" class="btn-sm btn-view" title="Voir">
+                            
+                        </a>
+                    </td>
                    
                 </tr>
                 {% endfor %}

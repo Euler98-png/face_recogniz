@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
@@ -73,3 +73,43 @@ def add_user(request):
         'form': profile_form,
         'image_form': image_form
     })
+
+@login_required
+def edit_user(request, profile_id):
+    profile = get_object_or_404(UserProfile, id=profile_id)
+    user = profile.user
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Utilisateur mis à jour avec succès.")
+            return redirect('dashboard')
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
+
+    return render(request, 'edit_user.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'profile': profile,
+    })
+
+
+@login_required
+def delete_user(request, profile_id):
+    profile = get_object_or_404(UserProfile, id=profile_id)
+    user = profile.user
+    user.delete()  # Cela supprime aussi le profile lié si `on_delete=models.CASCADE`
+    messages.success(request, "Utilisateur supprimé avec succès.")
+    return redirect('dashboard')
+
+@login_required
+def delete_user(request, profile_id):
+    profile = get_object_or_404(UserProfile, id=profile_id)
+    user = profile.user
+    user.delete()  # Cela supprime aussi le profile lié si `on_delete=models.CASCADE`
+    messages.success(request, "Utilisateur supprimé avec succès.")
+    return redirect('dashboard')
