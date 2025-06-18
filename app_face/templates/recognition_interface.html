@@ -2,46 +2,50 @@
 {% load static %}
 
 {% block content %}
-<div class="container-recognition">
-   <div class="video-section">
-    <h2>Interface de reconnaissance faciale</h2>
-    <p>Veuillez capturer votre visage pour vous identifier.</p>
+<div class="container-recognition" style="display: flex; flex-direction: row; gap: 40px; justify-content: center; align-items: flex-start;">
 
-    <div style="position: relative; display: inline-block;">
-        <video id="video-recognition"  width="640" height="480" style="border: 1px solid #000;"  autoplay muted></video>
-        <img id="output-frame" width="640" height="480" style="position: absolute; top: 0; left: 0;">
+    <!-- Colonne gauche : Image annotée -->
+    <div class="annotated-image-section" style="text-align: center;">
+        <h3>Résultat de la reconnaissance</h3>
+        <img id="output-frame" width="320" height="240" style="border:1px solid #000; margin-bottom: 10px;">
+        <div id="result-info-recognition">
+            <h4>Informations utilisateur</h4>
+            <form>
+                <div class="user-field-recognition">
+                    <label>Nom :</label>
+                    <input type="text" id="user-name" readonly>
+                </div>
+                <div class="user-field-recognition">
+                    <label>Email :</label>
+                    <input type="text" id="user-email" readonly>
+                </div>
+                <div class="user-field-recognition">
+                    <label>Identifiant :</label>
+                    <input type="text" id="user-id" readonly>
+                </div>
+                <div class="user-field-recognition">
+                    <label>Statut :</label>
+                    <input type="text" id="user-status" readonly>
+                </div>
+            </form>
+        </div>
     </div>
-    <br>
-    <button id="start-camera">Démarrer la caméra</button>
-    <button id="capture-btn-recognition" onclick="captureAndSend()">Capturer</button>
-</div>
 
-<div class="file-upload-section">
-    <label for="image-upload">Ou glissez-déposez / choisissez une image :</label>
-    <input type="file" id="image-upload" accept="image/*">
-    <img id="preview-uploaded-image" src="#" style="display: none; max-width: 400px; margin-top: 10px; border: 2px solid #ccc;">
-</div>
-
-    <div id="result-info-recognition">
-        <h3>Informations utilisateur</h3>
-        <form>
-            <div class="user-field-recognition">
-                <label>Nom :</label>
-                <input type="text" id="user-name" readonly>
-            </div>
-            <div class="user-field-recognition">
-                <label>Email :</label>
-                <input type="text" id="user-email" readonly>
-            </div>
-            <div class="user-field-recognition">
-                <label>Identifiant :</label>
-                <input type="text" id="user-id" readonly>
-            </div>
-            <div class="user-field-recognition">
-                <label>Statut :</label>
-                <input type="text" id="user-status" readonly>
-            </div>
-        </form>
+    <!-- Colonne droite : Vidéo et boutons -->
+    <div class="video-section" style="text-align: center;">
+        <h2>Interface de reconnaissance faciale</h2>
+        <p>Veuillez capturer votre visage pour vous identifier.</p>
+        <div style="position: relative; display: inline-block;">
+            <video id="video-recognition" width="640" height="480" style="border: 1px solid #000;" autoplay muted></video>
+        </div>
+        <br>
+        <button id="start-camera">Démarrer la caméra</button>
+        <div id="file-upload-section">
+            <label for="image-upload">Ou choisissez une image :</label>
+            <input type="file" id="image-upload" accept="image/*">
+            <img id="preview-uploaded-image" src="#" style="display: none; max-width: 400px; margin-top: 10px; border: 2px solid #ccc;">
+        </div>
+        <script src="{% static 'js/recogniz.js' %}"></script>
     </div>
 </div>
 {% endblock %}

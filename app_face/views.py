@@ -386,7 +386,7 @@ def recognize_face(request):
             'name': 'Inconnu',
             'email': 'Inconnu',
             'id': 'Inconnu',
-            'status': 'Inconnu'
+            
         }
 
         if face is not None:
@@ -432,7 +432,6 @@ def recognize_face(request):
         response['X-User-Name'] = user_data['name']
         response['X-User-Email'] = user_data['email']
         response['X-User-Id'] = user_data['id']
-        response['X-User-Status'] = user_data['status']
         return response
 
     return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'})
