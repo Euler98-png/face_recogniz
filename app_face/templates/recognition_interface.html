@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-recognition">
+   <div class="video-section">
+    <h2>Interface de reconnaissance faciale</h2>
+    <p>Veuillez capturer votre visage pour vous identifier.</p>
+
+    <div style="position: relative; display: inline-block;">
+        <video id="video-recognition"  width="640" height="480" style="border: 1px solid #000;"  autoplay muted></video>
+        <img id="output-frame" width="640" height="480" style="position: absolute; top: 0; left: 0;">
+    </div>
+    <br>
+    <button id="start-camera">Démarrer la caméra</button>
+    <button id="capture-btn-recognition" onclick="captureAndSend()">Capturer</button>
+</div>
+
+<div class="file-upload-section">
+    <label for="image-upload">Ou glissez-déposez / choisissez une image :</label>
+    <input type="file" id="image-upload" accept="image/*">
+    <img id="preview-uploaded-image" src="#" style="display: none; max-width: 400px; margin-top: 10px; border: 2px solid #ccc;">
+</div>
+
+    <div id="result-info-recognition">
+        <h3>Informations utilisateur</h3>
+        <form>
+            <div class="user-field-recognition">
+                <label>Nom :</label>
+                <input type="text" id="user-name" readonly>
+            </div>
+            <div class="user-field-recognition">
+                <label>Email :</label>
+                <input type="text" id="user-email" readonly>
+            </div>
+            <div class="user-field-recognition">
+                <label>Identifiant :</label>
+                <input type="text" id="user-id" readonly>
+            </div>
+            <div class="user-field-recognition">
+                <label>Statut :</label>
+                <input type="text" id="user-status" readonly>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

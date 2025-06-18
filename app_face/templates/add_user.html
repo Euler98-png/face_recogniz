@@ -2,22 +2,23 @@
 {% load static %}
 
 {% block content %}
-
 <div class="add-user-container">
   <h2>Ajouter un utilisateur</h2>
 
   {% if messages %}
-    {% for message in messages %}
-      <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
-        {{ message }}
-      </div>
-    {% endfor %}
+    <div class="form-messages">
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
   {% endif %}
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <!-- Champs liés à l'utilisateur -->
+    <h3 class="form-section-title">Informations personnelles</h3>
     {% for field in user_form %}
       <div class="form-group">
         {{ field.label_tag }}
@@ -28,7 +29,7 @@
       </div>
     {% endfor %}
 
-    <!-- Champs liés au profil -->
+    <h3 class="form-section-title">Profil utilisateur</h3>
     {% for field in form %}
       <div class="form-group">
         {{ field.label_tag }}
@@ -39,7 +40,7 @@
       </div>
     {% endfor %}
 
-    <!-- Champ de téléchargement des images -->
+    <h3 class="form-section-title">Ajout d'images</h3>
     <div class="form-group">
       {{ image_form.images.label_tag }}
       {{ image_form.images }}
@@ -47,8 +48,25 @@
         <div class="text-danger">{{ image_form.images.errors|striptags }}</div>
       {% endif %}
     </div>
-    <div id="preview"></div>
-    <button type="submit" class="btn-primary">Créer l'utilisateur</button>
+
+    <div class="form-group btn-group">
+      <button type="button" class="btn btn-secondary" id="start-camera">📷 Activer la caméra</button>
+      <button type="button" class="btn btn-success" id="capture-photo" style="display:none;">📸 Capturer</button>
+        <button type="button" class="btn btn-primary" id="send-photo" style="display:none;">💾 Enregistrer la capture</button>
+    </div>
+
+    <div class="webcam-container" style="display:none;">
+      <video id="video" width="320" height="240" autoplay></video>
+      <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+    <img id="preview" src="" style="margin-top: 10px; display: none; max-width: 200px;">
+    </div>
+
+    <div id="captured-images" class="image-grid"></div>
+    <div id="hidden-images-inputs"></div>
+    
+
+    <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
   </form>
 </div>
+
 {% endblock %}

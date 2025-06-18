@@ -32,17 +32,30 @@ class UserProfile(models.Model):
 def user_image_path(instance, filename):
     return f'user_images/{instance.user.username}/{filename}'
 
+
+def embedding_path(instance, filename):
+    return f'user_embeddings/{instance.user.username}/{filename}'
+
+
 class UserImage(models.Model):
+    SOURCE_CHOICES = [
+        ('upload', 'Upload'),
+        ('capture', 'Capture'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=user_image_path)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    
+    source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default='upload')  # ✅ nouveau champ
+
+    embedding = models.FileField(upload_to=embedding_path, null=True, blank=True)
+
+
     def __str__(self):
         return f"Image for {self.user.username} - {self.image.name}"
-    
+
     def delete(self, *args, **kwargs):
-        # Delete the image file when the model instance is deleted
-        if self.image:
-            if os.path.isfile(self.image.path):
-                os.remove(self.image.path)
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
         super().delete(*args, **kwargs)
+

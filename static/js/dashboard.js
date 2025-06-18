@@ -113,3 +113,4 @@ function showNotification(message, type = 'success') {
         notification.remove();
     }, 3000);
 }
+

@@ -1,41 +1,58 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
-{% block content %}
-<div class="dashboard-container">
-    <div class="dashboard-header">
-        <h2 class="dashboard-title">Modifier l'utilisateur</h2>
-    </div>
-    <div class="modal-content" style="max-width: 500px; margin: 0 auto;">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="form-group">
-                <label class="form-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                <div class="alert alert-error">
-                    {{ field.errors }}
-                </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-            <div class="btn-group" style="margin-top: 20px;">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                <a href="{% url 'dashboard' %}" class="btn btn-delete">Annuler</a>
-            </div>
-        </form>
-        
-    </div>
-</div>
 
-{% block extra_js %}
-<script>
-    // Appliquer les styles aux champs de formulaire
-    document.querySelectorAll('input, select').forEach(element => {
-        element.classList.add('form-input');
-    });
-</script>
+{% block content %}
+<div class="add-user-container">
+  <h2>Modifier l'utilisateur</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% for field in user_form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    
+    {% for field in profile_form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    {# ✅ Afficher les images existantes avant le bouton #}
+    {% if images %}
+      <h4 class="mt-4">Images existantes</h4>
+      <div class="user-images" style="display: flex; gap: 15px; flex-wrap: wrap; margin: 15px 0;">
+        {% for img in images %}
+      <div>
+        <img src="{{ img.image.url }}" alt="Image" width="150" height="150" style="object-fit: cover;">
+        <p>{{ img.uploaded_at|date:"d/m/Y H:i" }}</p>
+      </div>
+    {% endfor %}
+      </div>
+    {% else %}
+      <p>Aucune image enregistrée pour cet utilisateur.</p>
+    {% endif %}
+    <!-- Champ de téléchargement des nouvelles images -->
+    <div class="form-group">
+      {{ image_form.images.label_tag }}
+      {{ image_form.images }}
+      {% if image_form.images.errors %}
+        <div class="text-danger">{{ image_form.images.errors|striptags }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+  </form>
+</div>
 {% endblock %}
-{% endblock %}
-{% block extra_css %}

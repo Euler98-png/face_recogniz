@@ -196,7 +196,7 @@
   
   /* Formulaire d'ajout d'utilisateur */
 .add-user-container {
-  max-width: 600px;
+  max-width: 1000px; /* ou 900px selon ta préférence */
   margin: 3rem auto;
   padding: 2rem;
   background-color: white;
@@ -213,9 +213,19 @@
 }
 
 .add-user-container form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .add-user-container form {
+    grid-template-columns: 1fr;
+  }
+}
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
 .add-user-container form p {
@@ -223,6 +233,23 @@
   flex-direction: column;
 }
 
+.form-section-title {
+  grid-column: 1 / -1;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-top: 1rem;
+  margin-bottom: -1rem;
+}
+
+.text-danger {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  background-color: #fef2f2;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
 .add-user-container label {
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -351,4 +378,169 @@
 
 .btn-primary:hover {
   background-color: var(--secondary-color);
+}
+
+  .image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .image-grid img {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .image-grid img:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+
+  .webcam-container {
+  margin-top: 15px;
+  border: 2px dashed #ccc;
+  background-color: #fafafa;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+  .btn {
+    margin-right: 5px;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 6px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .alert-success {
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .alert-error {
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  /* Partie reconnaissance faciale*/
+  .container-recognition {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px;
+    gap: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    background-color: #f4f6f8;
+}
+
+.video-section {
+    flex: 1;
+    min-width: 45%;
+}
+
+#video-recognition {
+    border: 5px solid #007bff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    background-color: black;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#capture-btn-recognition {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#capture-btn-recognition:hover {
+    background-color: #0056b3;
+}
+
+#result-info-recognition {
+    flex: 1;
+    min-width: 45%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+#result-info-recognition h3 {
+    color: #333;
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+.user-field-recognition {
+    margin-bottom: 20px;
+}
+
+.user-field-recognition label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.user-field-recognition input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 1em;
+}
+
+
+.file-upload-section {
+    margin-top: 20px;
+    text-align: center;
+}
+#capture-btn-recognition,
+#image-upload {
+    margin-top: 10px;
+}
+
+#capture-btn-recognition:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
